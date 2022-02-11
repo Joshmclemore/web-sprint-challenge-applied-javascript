@@ -35,6 +35,7 @@ const Tabs = (topics) => {
 
   // attributes
 
+  topicsDiv.classList.add("topics");
   tab1.classList.add("tab");
   tab1.textContent = topics[0];
   tab2.classList.add("tab");
