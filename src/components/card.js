@@ -1,3 +1,4 @@
+import axios from "axios";
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -46,6 +47,12 @@ const Card = (article) => {
   cardImg.alt = "author's photo";
   cardAuthorName.textContent = `By ${article.authorName}`
 
+  // interactivity
+
+  cardWrapper.addEventListener("click", () => {
+    console.log(article.headline);
+  })
+
   return cardWrapper;
 
 }
@@ -59,6 +66,33 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  axios.get(`http://localhost:5000/api/articles`)
+    .then(resp => {
+      // I know that there is a way to loop through the class names under .articles, but I couldn't figure it out so I wrote out each of them.
+      resp.data.articles.javascript.forEach(element => {
+        const newCard = Card(element);
+        document.querySelector(selector).appendChild(newCard);
+      });
+      resp.data.articles.bootstrap.forEach(element => {
+        const newCard = Card(element);
+        document.querySelector(selector).appendChild(newCard);
+      });
+      resp.data.articles.technology.forEach(element => {
+        const newCard = Card(element);
+        document.querySelector(selector).appendChild(newCard);
+      });
+      resp.data.articles.jquery.forEach(element => {
+        const newCard = Card(element);
+        document.querySelector(selector).appendChild(newCard);
+      });
+      resp.data.articles.node.forEach(element => {
+        const newCard = Card(element);
+        document.querySelector(selector).appendChild(newCard);
+      });
+    })
+    .catch( err => {
+      console.error(err);
+    })
 }
 
 export { Card, cardAppender }
